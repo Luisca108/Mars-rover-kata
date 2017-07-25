@@ -10,17 +10,21 @@ var rover = {
 // ======================
 function turnLeft(rover){
   console.log("turnLeft was called!");
-  switch (direction) {
+  switch (rover.direction) {
     case "N":
+         rover.direction= "W"
          return "Rover is now facing West";
     break;
     case "E":
+         rover.direction= "N"
          return "Rover is now facing North";
     break;
     case "S":
-          return "Rover is now facing East";
+         rover.direction= "E"
+        return "Rover is now facing East";
     break;
     case "W":
+         rover.direction= "S"
          return "Rover is now facing South";
          break;
     default:
@@ -30,17 +34,21 @@ function turnLeft(rover){
 
 function turnRight(rover){
   console.log("turnRight was called!");
-  switch (direction) {
+  switch (rover.direction) {
     case "N":
+         rover.direction= "E"
          return "Rover is now facing East";
     break;
     case "E":
+         rover.direction= "S"
          return "Rover is now facing South";
     break;
     case "S":
+         rover.direction= "W"
           return "Rover is now facing West";
     break;
     case "W":
+         rover.direction= "N"
          return "Rover is now facing North";
          break;
     default:
@@ -50,21 +58,21 @@ function turnRight(rover){
 
 function moveForward(rover) {
   console.log("moveForward was called")
-  switch (x, y) {
+  switch (rover.direction) {
     case "N":
-         y[0]++
+         rover.y[0]++
          console.log("Rover is now increasing his y position");
     break;
     case "E":
-         x[0]++
+         rover.x[0]++
          console.log("Rover is now increasing his x position");
     break;
     case "S":
-          y[0]--
+          rover.y[0]--
           console.log("Rover is now decreasing his y position");
     break;
     case "W":
-          x[0]--
+          rover.x[0]--
          console.log("Rover is now decreasing his x position");
     break;
     default:
@@ -73,23 +81,21 @@ function moveForward(rover) {
 }
 //================
 function commands() {
-  for (var i = 0; i < direction.length; i++) {
-    var dir = direction[i];
-
-    switch (dir) {
-      case f:
-         return moveForward(rover);
-      break;
-      case l:
-        return turnLeft(rover);
-      break;
-      case r:
-        return turnRight(rover);
-      break;
-      default:
-        return "INCORRECT";
+  var userCommands = commands.split("");
+  for (var i = 0, i < userCommands.length; i++) {
+    if (userCommands[i] === "f"){
+      moveForward(rover);
+    } else if (userCommands[i] === "l") {
+      turnLeft(rover);
+    } else if (userCommands[i] === "r") {
+      turnRight(rover);
+    } else {
+      alert("Please use only f,l or r");
+      return commands();
     }
   }
 }
+
+commands();
 //===========
 travelLog.push(commands);
